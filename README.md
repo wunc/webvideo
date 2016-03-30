@@ -16,7 +16,7 @@ To install via Homebrew:
 
 ## Syntax
 
-`webvideo [-m] [-w] [-f] *files*`
+`webvideo [-m] [-w] [-f] [-na] *files*`
 
 ### Options
 - -m | --mp4
