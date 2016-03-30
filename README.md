@@ -6,7 +6,7 @@ A basic shell script to encode HTML5 video.
 
 - FFMPEG executable with at least the following libraries
 	- libx264
-	- libfaac
+	- libfdk_aac
 	- libvpx
 	- libvorbis
 

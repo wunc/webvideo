@@ -23,7 +23,7 @@ width=854		# set the width (set to -1 to auto-calculate)
 common_options="-pix_fmt yuv420p -b:v $vbitrate -qmin 10 -qmax 42 -maxrate $vbitrate -bufsize $buffer -threads $threads -vf scale=$width:$height"
 video_h264="-codec:v libx264 -profile:v baseline -preset slow"
 video_vpx="-codec:v libvpx -quality good -cpu-used 0"
-audio_aac="-codec:a libfaac -b:a $abitrate"
+audio_aac="-codec:a libfdk_aac -b:a $abitrate"
 audio_vorbis="-codec:a libvorbis -b:a $abitrate"
 
 for args in "$@"
