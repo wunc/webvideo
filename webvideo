@@ -39,8 +39,8 @@ do
         -f | --flv )    FLV=true
 						continue
 								;;
-        -na | --noaudio )	audio_aac="-na"
-							audio_vorbis="-na"
+        -na | --noaudio )	audio_aac="-an"
+							audio_vorbis="-an"
 							continue
 								;;
     esac
