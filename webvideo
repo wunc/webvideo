@@ -34,6 +34,9 @@ do
         -f | --flv )    FLV=true
 						continue
 								;;
+        -na | --noaudio )	audio_option="-na"
+							continue
+								;;
     esac
 
     fullpath=$args
@@ -44,32 +47,35 @@ do
 
 	# Convert to MP4 with ffmpeg
 	if $MP4; then
+		audio_option=${audio_option:-"-codec:a libfaac -b:a $abitrate"}
 		echo "MP4: =========== Converting $fullpath to $dir$base-web.mp4 =========="
 
 		echo "MP4: ====================================== Pass 1 =========================================="
 		ffmpeg -i "$fullpath" -codec:v libx264 -pix_fmt yuv420p -profile:v baseline -preset slow -b:v $vbitrate -qmin 10 -qmax 42 -maxrate $vbitrate -bufsize $buffer -threads $threads -vf scale=$width:$height -an -pass 1 -f mp4 -y /dev/null 2>&1 | grep "frame="
 		echo "MP4: ====================================== Pass 2 =========================================="
-		ffmpeg -i "$fullpath" -codec:v libx264 -pix_fmt yuv420p -profile:v baseline -preset slow -b:v $vbitrate -qmin 10 -qmax 42 -maxrate $vbitrate -bufsize $buffer -threads $threads -vf scale=$width:$height -codec:a libfaac -b:a $abitrate -pass 2 -f mp4 -movflags faststart -y "$dir$base"-web.mp4 2>&1 | grep "frame="
+		ffmpeg -i "$fullpath" -codec:v libx264 -pix_fmt yuv420p -profile:v baseline -preset slow -b:v $vbitrate -qmin 10 -qmax 42 -maxrate $vbitrate -bufsize $buffer -threads $threads -vf scale=$width:$height $audio_option -pass 2 -f mp4 -movflags faststart -y "$dir$base"-web.mp4 2>&1 | grep "frame="
 	fi
 
 	# Convert to WebM with ffmpeg
 	if $WebM; then
+		audio_option=${audio_option:-"-codec:a libvorbis -b:a $abitrate"}
 		echo "WebM: ========== Converting $fullpath to $dir$base-web.webm =========="
 		
 		echo "WebM: ====================================== Pass 1 =========================================="
 		ffmpeg -i "$fullpath" -codec:v libvpx -pix_fmt yuv420p -quality good -cpu-used 0 -b:v $vbitrate -qmin 10 -qmax 42 -maxrate $vbitrate -bufsize $buffer -threads $threads -vf scale=$width:$height -an -pass 1 -f webm -y /dev/null
 		echo "WebM: ====================================== Pass 2 =========================================="
-		ffmpeg -i "$fullpath" -codec:v libvpx -pix_fmt yuv420p -quality good -cpu-used 0 -b:v $vbitrate -qmin 10 -qmax 42 -maxrate $vbitrate -bufsize $buffer -threads $threads -vf scale=$width:$height -codec:a libvorbis -b:a $abitrate -pass 2 -f webm -y "$dir$base"-web.webm
+		ffmpeg -i "$fullpath" -codec:v libvpx -pix_fmt yuv420p -quality good -cpu-used 0 -b:v $vbitrate -qmin 10 -qmax 42 -maxrate $vbitrate -bufsize $buffer -threads $threads -vf scale=$width:$height $audio_option -pass 2 -f webm -y "$dir$base"-web.webm
 	fi
 
 	# Convert to FLV with ffmpeg
 	if $FLV; then
+		audio_option=${audio_option:-"-codec:a libfaac -b:a $abitrate"}
 		echo "FLV: =========== Converting $fullpath to $dir$base-web.flv ==========="
 
 		echo "FLV: ====================================== Pass 1 =========================================="
 		ffmpeg -i "$fullpath" -codec:v libx264 -pix_fmt yuv420p -profile:v baseline -preset slow -b:v $vbitrate -qmin 10 -qmax 42 -maxrate $vbitrate -bufsize $buffer -threads $threads -vf scale=$width:$height -an -pass 1 -f flv -loglevel warning -y /dev/null
 		echo "FLV: ====================================== Pass 2 =========================================="
-		ffmpeg -i "$fullpath" -codec:v libx264 -pix_fmt yuv420p -profile:v baseline -preset slow -b:v $vbitrate -qmin 10 -qmax 42 -maxrate $vbitrate -bufsize $buffer -threads $threads -vf scale=$width:$height -codec:a libfaac -b:a $abitrate -pass 2 -f flv -movflags faststart -y "$dir$base"-web.flv
+		ffmpeg -i "$fullpath" -codec:v libx264 -pix_fmt yuv420p -profile:v baseline -preset slow -b:v $vbitrate -qmin 10 -qmax 42 -maxrate $vbitrate -bufsize $buffer -threads $threads -vf scale=$width:$height $audio_option -pass 2 -f flv -movflags faststart -y "$dir$base"-web.flv
 
 	fi
 
