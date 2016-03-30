@@ -10,6 +10,10 @@ A basic shell script to encode HTML5 video.
 	- libvpx
 	- libvorbis
 
+To install via Homebrew:
+
+    brew install ffmpeg --with-fdk-aac --with-libvorbis --with-libvpx
+
 ## Syntax
 
 `webvideo [-m] [-w] [-f] *files*`
