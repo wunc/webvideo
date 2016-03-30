@@ -35,7 +35,7 @@ Most modern browsers support the HTML5 <video> element, but unfortunately it's n
 - mp4 = H.264 baseline profile video codec, AAC audio codec, MPEG-4 container
 - webm = VP8 video codec, Vorbis audio codec, WebM container
 
-Feel free to change them to your needs. If you want to know more, there's good reading [here](http://diveintohtml5.info/video.html) and [here](http://blog.zencoder.com/2013/09/13/what-formats-do-i-need-for-html5-video/) and a good support chart [here](http://caniuse.com/#feat=video).
+Feel free to change them to your needs. If you want to know more, there's good reading [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats), [here](http://diveintohtml5.info/video.html), [here](http://blog.zencoder.com/2013/09/13/what-formats-do-i-need-for-html5-video/), and a good support chart [here](http://caniuse.com/#feat=video).
 
 # Streaming
 
