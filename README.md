@@ -21,6 +21,8 @@ A basic shell script to encode HTML5 video.
 	- encode and output a webm format file
 - -f | --flv
 	- encode and output a flv format file
+- -na | --no-audio
+	- disable encoding of audio
 
 ## Background
 
